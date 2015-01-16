@@ -2,6 +2,7 @@
     {
         "language": "Russian",
         "i18n": "ru",
+        "entryText": "Русский",
         "translation": {
             "core": {
                 "languages": {
@@ -14,6 +15,10 @@
                     "submit": "Подтвердить",
                     "delete": "Удалить"
                 },
+                "header": {
+                    "tagsAdd": "Добавить метку",
+                    "search": "Искать товары..."
+                },
                 "productDetail": {
                     "productManagement": "Управление товарами",
                     "makeInvisible": "Сделать невидимым",
@@ -21,7 +26,10 @@
                     "makeItVisible": "Вы можете сделать его видимым",
                     "whenYouAreDone": "когда закончите редактирование.",
                     "tags": "Метки",
+                    "tagsAdd": "Новая метка",
                     "details": "Детали",
+                    "detailsName": "Название характеристики",
+                    "detailsInfo": "Значение характеристики",
                     "options": "Варианты",
                     "addToCart": "Добавить в корзину",
                     "chooseOptions": "Пожалуйста выберите вариант прежде чем добавить товар в корзину",
@@ -29,7 +37,27 @@
                     "productDeleteError": "Произошла ошибка во время удаления товара ",
                     "publishFirst": "Опубликуйте товар прежде чем добавить в корзину.",
                     "selectOption": "Выберите вариант прежде чем добавить в корзину",
-                    "addedToCart": "добавлено"
+                    "addedToCart": "добавлено",
+                    "dropFile": "Перетащите фото для загрузки"
+                },
+                "productDetailEdit": {
+                    "title": "Название",
+                    "pagetitle": "Другое название",
+                    "vendor": "Производитель",
+                    "description": "Добавьте описание товара"
+                },
+                "productVariant": {
+                    "inventoryQuantity": "Количество",
+                    "title": "Название",
+                    "price": "Цена",
+                    "optionTitle": "Опция",
+                    "barcode": "Штрих-код",
+                    "compareAtPrice": "Рекомендованная цена",
+                    "fulfillmentService": "Fulfillment service",
+                    "weight": "Вес",
+                    "inventoryManagement": "Inventory Tracking",
+                    "inventoryPolicy": "Не продавать, если кончается",
+                    "lowInventoryWarningThreshold": "Предупреждать когда меньше, чем"
                 },
                 "variantList": {
                     "moreOptions": "Есть еще варианты доступные для этого выбора.",
@@ -73,11 +101,19 @@
                 },
                 "checkoutProgressBar": {
                     "login": "Авторизация",
-                    "shippingBilling": "Доставки и Оплата",
+                    "shippingBilling": "Доставки и оплата",
                     "shippingOptions": "Варианты доставки",
                     "reviewPayment": "Подтверждение и Оплата",
                     "complete": "Готово"
-                },                
+                },
+                "dashboardIcon": {
+                    "iconTitle": "Показать дэшборд",
+                    "text": "Дэшборд"
+                },
+                "createProductIcon": {
+                    "iconTitle": "Добавить товар",
+                    "text": "Добавить"
+                },
                 "accountsUI": {
                     "add": "добавить",
                     "and": "и",
@@ -106,7 +142,8 @@
                     "setPassword": "Установить пароль",
                     "sign": "Подпись",
                     "signIn": "Войти",
-                    "signin": "bойти",
+                    "signedIn": "Вы уже вошли",
+                    "signin": "войти",
                     "signOut": "Выйти",
                     "signUp": "Регистрация",
                     "signupCode": "Регистрационный код",

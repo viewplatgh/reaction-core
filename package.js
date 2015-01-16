@@ -1,12 +1,8 @@
 Package.describe({
-  summary: "Reaction Core - Reaction Commerce package for Meteor",
+  summary: "Core - Reaction Commerce ecommerce Meteor package",
   name: "reactioncommerce:core",
   version: "0.2.2",
   git: "https://github.com/reactioncommerce/reaction-core.git"
-});
-
-Npm.depends({
-    "colors": "0.6.2"
 });
 
 Package._transitional_registerBuildPlugin({
@@ -43,31 +39,36 @@ Package.onUse(function (api) {
     api.use("amplify@1.0.0");
 
     //community packages
-    api.use("nemo64:bootstrap@3.3.0_1","client");
+    api.use("nemo64:bootstrap@3.3.1_1","client");
+    api.use("nemo64:bootstrap@3.3.1_1","server", {'weak': 1});
     api.use("d3js:d3@3.4.13");
     api.use("fortawesome:fontawesome@4.2.0_2");
     api.use('mrt:underscore-string-latest@2.3.3');
     api.use("aldeed:geocoder@0.3.3");
     api.use("aldeed:collection2@2.2.0");
-    api.use("aldeed:simple-schema@1.1.0");
-    api.use("aldeed:autoform@4.0.7");
+    api.use("aldeed:simple-schema@1.2.0");
+    api.use("aldeed:autoform@4.2.2");
     api.use("aldeed:template-extension@3.1.1","client");
-    api.use("iron:router@0.9.4");
-    api.use("ongoworks:speakingurl@1.0.3");
-    api.use("nemo64:bootstrap@3.3.0_1","server", {'weak': 1});
+    api.use("iron:router@1.0.7");
+    api.use("ongoworks:speakingurl@1.0.5");
+    api.use("ongoworks:pdf@1.1.0");
+    api.use("ongoworks:bunyan-logger@1.0.0");
 
     api.use("dburles:collection-helpers@1.0.1");
+    api.use("dburles:factory@0.3.7");
+    api.use("anti:fake@0.4.1");
     api.use("matb33:collection-hooks@0.7.6");
     api.use("alanning:roles@1.2.13");
     api.use("cmather:handlebars-server@2.0.0","server");
-    api.use("mrt:moment@2.8.1","client");
+    api.use('momentjs:moment@2.8.4', 'client');
     api.use("sacha:spin@2.0.4", "client");
 
-    api.use("cfs:standard-packages@0.0.2");
-    api.use("cfs:graphicsmagick@0.0.1");
-    api.use("cfs:filesystem@0.0.0");
-    api.use("cfs:gridfs@0.0.0");
-    api.use("cfs:s3@0.0.0");
+    api.use("cfs:standard-packages@0.5.3");
+    api.use("cfs:graphicsmagick@0.0.17");
+    api.use("cfs:filesystem@0.1.1");
+    api.use("cfs:gridfs@0.0.27");
+    api.use("cfs:s3@0.1.1");
+    api.use("cfs:ui@0.1.3");
     api.use("raix:ui-dropped-event@0.0.7");
 
     //implying these are reused in reaction packages
@@ -90,6 +91,7 @@ Package.onUse(function (api) {
     api.imply("alanning:roles");
     api.imply("mrt:moment", ["client"]);
     api.imply("sacha:spin" ["client"]);
+    api.imply("dburles:factory");
     api.imply("ongoworks:speakingurl");
 
 
@@ -113,6 +115,9 @@ Package.onUse(function (api) {
     "common/schemas/cart.coffee",
     "common/schemas/orders.coffee",
     "common/schemas/translations.coffee",
+    "common/schemas/taxes.coffee",
+    "common/schemas/shipping.coffee",
+    "common/schemas/discounts.coffee",
     "common/collections/collections.coffee",
     "common/collections/collectionFS.coffee",
     "common/helpers/helpers.coffee",
@@ -123,6 +128,7 @@ Package.onUse(function (api) {
     "server/app.coffee",
     "server/publications.coffee",
     "server/fixtures.coffee",
+    "server/factories.coffee",
     "server/methods/methods.coffee",
     "server/methods/cart/methods.coffee",
     "server/methods/cart/checkout/methods.coffee",
@@ -175,7 +181,6 @@ Package.onUse(function (api) {
     "client/templates/layout/header/i18n/i18n.coffee",
 
     "client/templates/layout/footer/footer.html",
-    "client/templates/layout/footer/footer.coffee",
 
     "client/templates/layout/alerts/bootstrap-alerts.coffee",
     "client/templates/layout/alerts/alerts.html",
@@ -382,7 +387,6 @@ Package.onUse(function (api) {
   api.addFiles('private/data/i18n/sl.json', 'server', {isAsset: true});
   api.addFiles('private/data/i18n/sv.json', 'server', {isAsset: true});
   api.addFiles('private/data/i18n/vi.json', 'server', {isAsset: true});
-
 
   // We are now grouping all exported app variables and methods under
   // "ReactionCore". The other exported variables should be moved to

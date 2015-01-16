@@ -6,32 +6,47 @@ Meteor.methods
   # gets shipping rates and updates the users cart methods
   ###
   updateCartShippingRates: (cartSession) ->
-    unless cartSession then return null
+    # unless check cartSession, ReactionCore.Schemas.Cart
+    unless cartSession
+      ReactionCore.Events.info "no cart passed to update rates, return null."
+      return null
     if cartSession.shipping?.address and cartSession.shipping?.shipmentMethods then return
 
     cart = Cart.findOne(cartSession._id)
     rates = Meteor.call "getShippingRates"
+    #TODO:
+    # Apply rate filters here
+
     # update users cart
-    Cart.update(cartSession._id, { $set: {'shipping.shipmentMethods': rates}})
+    if rates.length > 0
+      Cart.update(cartSession._id, { $set: {'shipping.shipmentMethods': rates}})
+
     # return in the rates object
+    ReactionCore.Events.debug rates
     return rates
 
   ###
   #  just gets rates, without updating anything
   ###
-  getShippingRates: () ->
+  getShippingRates: (cartSession) ->
+    # check cartSession, ReactionCore.Schemas.Cart
     rates = []
-    shop = Shops.findOne(ReactionCore.getShopId())
+    shipping = ReactionCore.Collections.Shipping.find({'shopId': ReactionCore.getShopId()})
     # flat rate / table shipping rates
-    for carrier,value in shop?.shipping
-      for method,index in carrier.methods
-        if method?.rate?
-          method.rate = "Free" if method.rate is '0'
-          rates.push carrier: value, method: index, label:method.label, value:method.rate
-      console.log "returning rates" if Meteor.settings.isDebug
+    shipping.forEach (shipping) ->
+      ## get all enabled rates
+      for method, index in shipping.methods when method.enabled is true
+        unless method.rate then method.rate = 0 #
+        unless method.handling then method.handling = 0
+        # rules
+
+        # rate is shipping and handling
+        rate = method.rate+method.handling
+        rates.push carrier: shipping.provider.label, method: method, rate: rate
 
     # TODO:
     # wire in external shipping methods here, add to rates
 
     # return in the rates object
+    ReactionCore.Events.info "getShippingrates returning rates"
     return rates
